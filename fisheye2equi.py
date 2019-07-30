@@ -64,11 +64,12 @@ def run(args):
     equi_img_right = fisheye2equi(src_img_right, size, aperture)
     print("done!")
 
-    print("Merging bpth images ... ", end="")
+    print("Merging both images ... ", end="")
     w, h = size
     merged_img = np.zeros((h, w, 3))
-    merged_img[:, 0:int(w / 2)] = equi_img_left[:, int(w / 2):]
-    merged_img[:, int(w / 2):] = equi_img_right[:, int(w / 2):]
+    # we should swap the images
+    merged_img[:, 0:int(w / 2)] = equi_img_right[:, int(w / 2):]
+    merged_img[:, int(w / 2):] = equi_img_left[:, int(w / 2):]
     print("done!")
 
     cv.imwrite("{}/equirect_right.jpg".format(args["output_dir"]), equi_img_right)
